@@ -1,6 +1,6 @@
 import { MessageType } from "./types";
 
-export async function askLLM(messages: MessageType[]): Promise<any> {
+export async function askLLM(messages: MessageType[]): Promise<MessageType | undefined> {
     try {
       const res = await fetch('/api/ask', {
         method: 'POST',
