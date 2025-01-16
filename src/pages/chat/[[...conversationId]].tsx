@@ -1,4 +1,3 @@
-import '../globals.css'
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import ChatLayout from "@/ui/ChatLayout";
