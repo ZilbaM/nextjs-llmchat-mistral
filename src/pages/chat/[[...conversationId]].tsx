@@ -72,6 +72,7 @@ export default function ChatPage() {
    * handleSend: Called when the user sends a new message
    */
   const handleSend = async (newMessage: string) => {
+    setIsLoading(true);
     let currentConversationId = conversationId
     // If no conversationId exists, create one now.
     const formattedMessage: MessageType = {
@@ -98,11 +99,13 @@ export default function ChatPage() {
     const llmReply : MessageType = await askLLM(updatedMessages);
     if (!llmReply) {
       console.error("LLM call returned no response");
+      setIsLoading(false);
       return;
     }
     updatedMessages = [...updatedMessages, llmReply];
     setMessages(updatedMessages);
     await setConversation(currentConversationId, updatedMessages);
+    setIsLoading(false);
   };
   const [isLoading, setIsLoading] = useState(false);
 
