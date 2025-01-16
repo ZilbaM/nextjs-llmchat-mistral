@@ -5,7 +5,9 @@ type Props = {
     placeholder: string
     value: string | number
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+    onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void
     fullWidth?: boolean
+    inputId?: string
 }
 
 const InputText : React.FC<Props> = function({
@@ -13,19 +15,19 @@ const InputText : React.FC<Props> = function({
     placeholder= '',
     value = '',
     onChange,
-    fullWidth = false
+    onKeyDown,
+    fullWidth = false,
+    inputId
 }: Props) {
 
-    const [state, setState] = useState<string | number | undefined>(value)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setState(e.target.value)
         onChange?.(e)
     }
 
   return (
     <div className={' ' + (fullWidth ? 'w-full' : '')}>
-      <input className='focus:outline-none w-full py-2' type={type} placeholder={placeholder} value={state} onChange={handleChange} />
+      <input onKeyDown={onKeyDown} id={inputId} className='focus:outline-none w-full py-2' type={type} placeholder={placeholder} value={value} onChange={handleChange} />
     </div>
   )
 }

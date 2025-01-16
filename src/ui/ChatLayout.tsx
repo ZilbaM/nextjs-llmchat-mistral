@@ -9,15 +9,24 @@ type Props = {
     conversations: string[];
     messages: MessageType[];
     onSend: (message: string) => void
+    isLoading: boolean
 }
 
 const ChatLayout : React.FC<Props> = function({
     messages = [],
     conversations = [],
     conversationId,
-    onSend
+    onSend,
+    isLoading = false,
 }: Props) {
     const [message, setMessage] = useState('')
+
+    const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            onSend(message)
+            setMessage('')
+        }
+    }
 
   return (
     <div className='flex w-screen h-screen'>
@@ -52,8 +61,8 @@ const ChatLayout : React.FC<Props> = function({
                 })}
             </ul>
             <div className='w-2/3 flex gap-8 border border-gray-200 p-6 items-center'>
-                <InputText fullWidth placeholder="Message" type='text' onChange={(e) => {setMessage(e.target.value)}} value={message} />
-                <Button variant='outlined' onClick={() => {onSend(message)}} disabled={message.length == 0}>Send</Button>
+                <InputText inputId='chatInput' fullWidth placeholder="Message" type='text' onKeyDown={onKeyDown} onChange={(e) => {setMessage(e.target.value)}} value={message} />
+                <Button buttonId='sendButton' variant='outlined' onClick={() => {onSend(message);setMessage('')}} disabled={message.length == 0}>Send</Button>
             </div>
             </div>
         </main>

@@ -104,6 +104,7 @@ export default function ChatPage() {
     setMessages(updatedMessages);
     await setConversation(currentConversationId, updatedMessages);
   };
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <ChatLayout
@@ -111,6 +112,7 @@ export default function ChatPage() {
       conversationId={conversationId}
       messages={messages}
       onSend={handleSend}
+      isLoading={isLoading}
     />
   );
 }
