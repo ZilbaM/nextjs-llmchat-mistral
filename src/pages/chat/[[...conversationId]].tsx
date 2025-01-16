@@ -96,7 +96,7 @@ export default function ChatPage() {
     setMessages(updatedMessages);
     await setConversation(currentConversationId, updatedMessages);
 
-    const llmReply : MessageType = await askLLM(updatedMessages);
+    const llmReply = await askLLM(updatedMessages);
     if (!llmReply) {
       console.error("LLM call returned no response");
       setIsLoading(false);
