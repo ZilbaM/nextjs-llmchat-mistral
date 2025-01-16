@@ -1,4 +1,4 @@
-import { set, get } from 'idb-keyval';
+import { set, get, del } from 'idb-keyval';
 import CryptoJS from 'crypto-js';
 import { v4 as uuidv4 } from 'uuid';
 import { MessageType } from './types';
@@ -81,3 +81,15 @@ export async function createNewConversation(initialMessages: MessageType[] = [])
     await setConversation(conversationId, initialMessages); // Initialize storage for the new conversation
     return conversationId;
   }
+
+export async function deleteConversation(conversationId: string) {
+    const chatKeyToDelete = chatKey(conversationId);
+    const hashKeyToDelete = hashKey(conversationId);
+
+    await del(chatKeyToDelete);
+    await del(hashKeyToDelete);
+
+    const existingList = await get<string[]>(CONVERSATION_LIST_KEY) || [];
+    const updatedList = existingList.filter((id) => id !== conversationId);
+    await set(CONVERSATION_LIST_KEY, updatedList);
+}

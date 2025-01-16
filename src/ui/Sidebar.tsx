@@ -7,7 +7,10 @@ interface Props {
   conversationId?: string;
 }
 
-const Sidebar: React.FC<Props> = function ({ conversations }: Props) {
+const Sidebar: React.FC<Props> = function ({
+  conversations,
+  conversationId,
+}: Props) {
   return (
     <aside className="h-full w-1/4 bg-gray-50 flex flex-col p-4 gap-4">
       <div className="p-2 flex justify-between items-center">
@@ -19,13 +22,19 @@ const Sidebar: React.FC<Props> = function ({ conversations }: Props) {
           <MessageSquareDiff />
         </Link>
       </div>
-      <ul className="flex w-full text-base flex-col gap-2">
+      <ul className="flex w-full h-screen mt-2 flex-col gap-3">
         {conversations.map((convId) => (
           <li className="w-full" key={convId}>
-            <Link
-              className="my-4 w-full hover:bg-gray-200 rounded-md p-2"
-              href={`/chat/${convId}`}
-            >{`${convId}`}</Link>
+            {convId === conversationId ? (
+              <p className="w-full text-base bg-gray-200 rounded-md p-2">
+                {convId}
+              </p>
+            ) : (
+              <Link
+                className="w-full text-base hover:bg-gray-200 rounded-md p-2"
+                href={`/chat/${convId}`}
+              >{convId}</Link>
+            )}
           </li>
         ))}
       </ul>

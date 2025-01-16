@@ -34,7 +34,7 @@ const ChatLayout: React.FC<Props> = function ({
       <Sidebar conversations={conversations} conversationId={conversationId} />
       <main className="w-full h-full py-16 flex flex-col items-center">
         <div className="w-3/5 h-full flex flex-col justify-between items-center">
-          <ul className="flex flex-col gap-2 ">
+          <ul className="flex flex-col gap-2 overflow-auto">
             {messages.length === 0 && (
               <div className="flex flex-col justify-center items-center">
                 <h2 className="text-4xl">AI Chatbot</h2>
@@ -68,7 +68,7 @@ const ChatLayout: React.FC<Props> = function ({
               );
             })}
           </ul>
-          <div className="w-2/3 flex gap-8 border border-gray-200 p-6 items-center">
+          <div className="w-2/3 flex gap-8 border border-gray-200 p-6 mt-6 items-center">
             <InputText
               inputId="chatInput"
               fullWidth
