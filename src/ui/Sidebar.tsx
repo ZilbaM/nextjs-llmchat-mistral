@@ -16,7 +16,9 @@ const Sidebar: React.FC<Props> = function ({
   return (
     <aside className="h-full w-full bg-gray-50 flex flex-col p-4 gap-4">
       <div className="p-2 flex justify-between items-center">
-        <PanelLeftClose onClick={sidebarToggle} />
+        <div onClick={sidebarToggle} className="flex items-center text-sm rounded-sm hover:bg-gray-200 cursor-pointer p-2">
+          <PanelLeftClose />
+        </div>
         <h2 className="text-lg font-bold">Conversations</h2>
         <Link
           onClick={sidebarToggle}

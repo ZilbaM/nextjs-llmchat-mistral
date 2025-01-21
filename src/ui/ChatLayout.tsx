@@ -62,7 +62,7 @@ const ChatLayout: React.FC<Props> = function ({
         {!isSidebarOpen && (
           <div
             onClick={toggleSidebar}
-            className="mr-auto cursor-pointer hover:bg-gray-200 rounded-sm"
+            className="mr-auto cursor-pointer hover:bg-gray-200 p-2 rounded-sm"
           >
             <PanelLeftOpen />
           </div>
