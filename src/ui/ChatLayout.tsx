@@ -3,7 +3,7 @@ import Sidebar from "./Sidebar";
 import InputText from "./InputText";
 import Button from "./Button";
 import { MessageType } from "@/utils/types";
-import { Copy, PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import { Copy, PanelLeftOpen } from "lucide-react";
 import clsx from "clsx";
 
 type Props = {

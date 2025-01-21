@@ -55,7 +55,7 @@ export default function ChatPage() {
       }
       setMessages(saved);
     })();
-  }, [conversationId]);
+  }, [conversationId, router]);
 
   /**
    * Effect 3: Load the list of conversation IDs (for a sidebar or similar).
