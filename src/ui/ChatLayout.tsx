@@ -3,7 +3,8 @@ import Sidebar from "./Sidebar";
 import InputText from "./InputText";
 import Button from "./Button";
 import { MessageType } from "@/utils/types";
-import { Copy } from "lucide-react";
+import { Copy, PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import clsx from "clsx";
 
 type Props = {
   conversationId?: string;
@@ -21,6 +22,11 @@ const ChatLayout: React.FC<Props> = function ({
   isLoading = false,
 }: Props) {
   const [message, setMessage] = useState("");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -31,10 +37,27 @@ const ChatLayout: React.FC<Props> = function ({
 
   return (
     <div className="flex w-screen h-screen">
-      <Sidebar conversations={conversations} conversationId={conversationId} />
-      <main className="w-full h-full py-16 flex flex-col items-center">
+      <div
+        className={clsx(
+          "h-full overflow-x-hidden z-0 transition-all duration-500",
+          isSidebarOpen ? "w-1/4 visible" : "w-0 invisible"
+        )}
+      >
+        <Sidebar
+          conversations={conversations}
+          conversationId={conversationId}
+        />
+      </div>
+      <main className="relative w-full z-1 h-full py-16 flex flex-col items-center">
+        <div onClick={toggleSidebar} className="absolute cursor-pointer top-6 left-4 p-2 hover:bg-gray-200 rounded-sm">
+          {isSidebarOpen ? (
+            <PanelLeftClose />
+          ) : (
+            <PanelLeftOpen />
+          )}
+        </div>
         <div className="w-3/5 h-full flex flex-col justify-between items-center">
-          <ul className="flex flex-col gap-2 overflow-auto">
+          <ul className="flex flex-col gap-3 overflow-auto">
             {messages.length === 0 && (
               <div className="flex flex-col justify-center items-center">
                 <h2 className="text-4xl">AI Chatbot</h2>
@@ -54,11 +77,11 @@ const ChatLayout: React.FC<Props> = function ({
                       <span className="font-bold">AI:</span>
                     </div>
                   )}
-                  <div className="w-full flex justify-between items-center group">
-                    <p>{messageItem.content}</p>
+                  <div className="relative w-full flex justify-between items-center group">
+                    <p className="w-11/12">{messageItem.content}</p>
                     <Copy
-                        size={20}
-                      className="cursor-pointer hover:scale-110 transition-all opacity-0 group-hover:opacity-100"
+                      size={20}
+                      className="absolute right-0 top-2 cursor-pointer hover:scale-125 transition-all h-3"
                       onClick={() =>
                         navigator.clipboard.writeText(messageItem.content)
                       }

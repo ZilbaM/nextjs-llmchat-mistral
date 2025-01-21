@@ -1,4 +1,5 @@
 import React from 'react'
+import clsx from 'clsx'
 
 type Props = {
     type: 'text' | 'number' | 'password'
@@ -26,7 +27,9 @@ const InputText : React.FC<Props> = function({
     }
 
   return (
-    <div className={' ' + (fullWidth ? 'w-full' : '')}>
+    <div className={clsx({
+      'w-full': fullWidth,
+    })}>
       <input onKeyDown={onKeyDown} id={inputId} className='focus:outline-none w-full py-2' type={type} placeholder={placeholder} value={value} onChange={handleChange} />
     </div>
   )
