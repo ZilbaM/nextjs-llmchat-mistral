@@ -9,6 +9,7 @@ import {
 } from "@/utils/storage";
 import { askLLM } from "@/utils/llm";
 import { MessageType } from "@/utils/types";
+import Head from "next/head";
 
 export default function ChatPage() {
   const router = useRouter();
@@ -108,13 +109,18 @@ export default function ChatPage() {
   };
   const [isLoading, setIsLoading] = useState(false);
 
-  return (
+  return (<>
+  <Head>
+    <title>Mistral LLM Chat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </Head>
     <ChatLayout
       conversations={conversations}
       conversationId={conversationId}
       messages={messages}
       onSend={handleSend}
       isLoading={isLoading}
-    />
+      />
+      </>
   );
 }
